@@ -2,7 +2,7 @@ package client_test
 
 import (
 	"fmt"
-	"github.com/fbsobreira/gotron-sdk/pkg/client"
+	"github.com/Nerrow/gotron-sdk/pkg/client"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 	"strings"

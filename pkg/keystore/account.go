@@ -5,10 +5,10 @@ import (
 	"crypto/elliptic"
 	"fmt"
 
+	"github.com/Nerrow/gotron-sdk/pkg/address"
+	"github.com/Nerrow/gotron-sdk/pkg/common"
+	"github.com/Nerrow/gotron-sdk/pkg/proto/core"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/fbsobreira/gotron-sdk/pkg/address"
-	"github.com/fbsobreira/gotron-sdk/pkg/common"
-	"github.com/fbsobreira/gotron-sdk/pkg/proto/core"
 )
 
 type DerivationPath []uint32

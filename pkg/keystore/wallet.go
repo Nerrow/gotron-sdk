@@ -19,8 +19,8 @@ package keystore
 import (
 	"bytes"
 
+	"github.com/Nerrow/gotron-sdk/pkg/proto/core"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/fbsobreira/gotron-sdk/pkg/proto/core"
 )
 
 // keystoreWallet implements the Wallet interface for the original
