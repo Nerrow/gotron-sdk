@@ -31,8 +31,10 @@ func TestMain(m *testing.M) {
 		_ = fmt.Errorf("Error connecting GRPC Client: %v", err)
 	}
 
-	conn.SetAPIKey(apiKey)
-
+	err := conn.SetAPIKey(apiKey)
+	if err != nil {
+		fmt.Println("Error setting api key")
+	}
 	exitVal := m.Run()
 	os.Exit(exitVal)
 }
@@ -82,7 +84,7 @@ func TestUnfreezeV2(t *testing.T) {
 
 func TestDelegate(t *testing.T) {
 	t.Skip() // Only in testnet nile
-	tx, err := conn.DelegateResource(testnetNileAddressExample, testnetNileAddressDelegateExample, core.ResourceCode_BANDWIDTH, 1000000, false)
+	tx, err := conn.DelegateResource(testnetNileAddressExample, testnetNileAddressDelegateExample, core.ResourceCode_BANDWIDTH, 1000000, false, 100)
 
 	require.Nil(t, err)
 	require.NotNil(t, tx.GetTxid())

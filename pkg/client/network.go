@@ -111,3 +111,36 @@ func (g *GrpcClient) GetNodeInfo() (*core.NodeInfo, error) {
 
 	return g.Client.GetNodeInfo(ctx, new(api.EmptyMessage))
 }
+
+// GetTransactionListFromPending get unconfirmed TXs id list
+func (g *GrpcClient) GetTransactionListFromPending() ([]string, error) {
+	ctx, cancel := g.getContext()
+	defer cancel()
+	txIds, err := g.Client.GetTransactionListFromPending(ctx, &api.EmptyMessage{})
+	if err != nil {
+		return nil, err
+	}
+	return txIds.TxId, nil
+}
+
+// GetTransactionFromPending get unconfirmed TX by ID
+func (g *GrpcClient) GetTransactionFromPending(id string) (*core.Transaction, error) {
+	transactionID := new(api.BytesMessage)
+	var err error
+
+	transactionID.Value, err = common.FromHex(id)
+	if err != nil {
+		return nil, fmt.Errorf("get transaction by id error: %v", err)
+	}
+
+	ctx, cancel := g.getContext()
+	defer cancel()
+	tx, err := g.Client.GetTransactionFromPending(ctx, transactionID)
+	if err != nil {
+		return nil, err
+	}
+	if size := proto.Size(tx); size > 0 {
+		return tx, nil
+	}
+	return nil, fmt.Errorf("transaction info not found")
+}
