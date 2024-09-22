@@ -123,7 +123,7 @@ func (g *GrpcClient) GetTransactionListFromPending() ([]string, error) {
 	return txIds.TxId, nil
 }
 
-// GetTransactionFromPending get unconfirmed TX by ID
+// GetTransactionFromPending get pending TX by ID
 func (g *GrpcClient) GetTransactionFromPending(id string) (*core.Transaction, error) {
 	transactionID := new(api.BytesMessage)
 	var err error
@@ -142,5 +142,6 @@ func (g *GrpcClient) GetTransactionFromPending(id string) (*core.Transaction, er
 	if size := proto.Size(tx); size > 0 {
 		return tx, nil
 	}
-	return nil, fmt.Errorf("transaction info not found")
+	// if both are nil - then transaction already confirmed
+	return nil, nil
 }
